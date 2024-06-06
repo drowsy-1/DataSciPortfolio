@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Science Project Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #246A73;
+      color: #F3DFC1;
+      padding: 1rem;
+    }
+    .content {
+      flex-grow: 1;
+      padding: 2rem;
+      background: #2c3e50;
+      border-radius: 0 0 15px 15px;
+      overflow-y: auto;
+      margin-top: -1px;
+      border: 1px solid #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @media screen and (max-width: 768px) {
+      .card-container {
+        flex-direction: unset;
+      }
+      .content {
+        border-radius: 0;
+      }
+    }
+    .section {
+      opacity: 0;
+      margin-bottom: 2rem;
+    }
+    .section-transition {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .section {
+        transition: opacity 4s ease, transform 4s ease;
+      }
+      .square-animation {
+        animation: wipe-enter 2s 1;
+      }
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 5%;
+    }
+    .card {
+      border-radius: 15px;
+    }
+    .card img {
+      border-radius: 15px;
+    }
+    .text-wrapper {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+    .imposing-btn {
+      position: relative;
+      display: inline-block;
+      border-radius: 15px;
+      padding: 20px 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #DDBEA8;
+      border: 4px solid #160F29;
+      text-decoration: none;
+      text-align: center;
+      overflow: hidden;
+    }
+    .imposing-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('/Assets/IMG_1066 Small.jpeg') no-repeat center center;
+      background-size: cover;
+      filter: grayscale(30%);
+      opacity: 0.5;
+      z-index: -1;
+    }
+    .footer {
+      background-color: #160F29;
+      color: #DDBEA8;
+      padding: 6rem 7rem;
+      position: static; /* Make the footer stick to the bottom */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: auto;
+      padding: 0 1rem; /* Ensure content is within the margins */
+    }
+    .footer-info .contact {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .footer-info {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-info li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-btn {
+      border: 5px solid #DDBEA8;
+      background: transparent;
+      color: #DDBEA8;
+      border-radius: 10px;
+      padding: 20px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      text-align: center;
+    }
+    .footer-btn i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      border-top: 1px solid #DDBEA8;
+      padding-top: 0.5rem;
+    }
+    .card-sm {
+      background: #160F29;
+      color: #DDBEA8;
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 15px;
+      margin-top: 3rem;
+    }
+    h1, h3 {
+      background-color: #160F29;
+      color: #F3DFC1;
+      padding: 1rem;
+    }
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .carousel-card {
+      background-color: #368F8B;
+      border-radius: 15px;
+      padding: 1rem;
+      margin: 3rem auto; /* Center the card horizontally */
+      width: 95%;
+      max-width: 100%; /* Ensures it doesn't exceed the body size */
+    }
+    .carousel-inner {
+      border-radius: 15px;
+      overflow: hidden; /* Prevents images from overflowing the border radius */
+    }
+    .carousel-inner img {
+      object-fit: contain; /* Ensures images fit within the container without clipping */
+      width: 100%;
+      height: auto;
+      margin: auto;
+    }
+    img.center,
+    .carousel,
+    .btn {
+      display: block;
+      margin: 2rem auto;
+    }
+    .mb-2,
+    .mb-5,
+    .text-wrapper p {
+      margin-bottom: 1.5rem !important;
+    }
+    @media (max-width: 768px) {
+      .footer {
+        padding: 2rem 1rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-btn {
+        align-self: center;
+        margin-top: 1rem;
+      }
+      .card, .carousel-card, .content {
+        padding: 1rem;
+      }
+      .carousel-card {
+        width: 100%;
+      }
+      .imposing-btn {
+        width: 100%;
+        padding: 1rem;
+      }
+      h1, h3 {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row mb-5" style="background: #160F29; color: #F3DFC1; height: 750px; display: flex; align-content: center;">
+      <h1 class="text-center text-uppercase w-100 p-5 mb-5 mt-5 fw-bold">Bridging the Gap: From Bench to Code</h1>
+      <h3 class="text-center w-100 p-5 mb-5 mt-5 fw-bold">Trinity M. Love</h3>
+    </div>
+    <div class="row px-4 mb-5 mt-5 section-wrapper">
+      <div class="col w-100 section section-transition about-card">
+        <div class="card" style="background: #7B7B7B; color: #160F29; border-radius: 25px;">
+          <div class="row w-100 mb-2" style="padding: 5%">
+            <div class="col-8">
+              <h2 class="fw-bold mb-5">About Me</h2>
+              <p class="mb-2">
+                For years I have been focused on pursuing my interests. It started with turning my childhood sandbox into a raised bed in middle school, and very quickly led to me taking over large portions of my parents' yard to make room for all the new plants I was growing. This passion continued to college where I got my Bachelors in Agricultural and Medical Biotechnology.
+              </p>
+              <h5 class="fw-bold">Educational Background</h5>
+              <p class="mb-2">
+                I chose this unique program due to its flexibility and breadth. I could continue to learn about the plants I love, while also learning about transgenics, DNA sequencing, tissue culture, and the vast array of accompanying analytical techniques one could use in the laboratory research setting, including a brief introduction to bioinformatics my senior year. While in undergrad, I had a few glimpses of the amazing capabilities that computers have to solve our problems. I struggled with the mathematics I encountered while taking my Population Genetics course, to the point one day while studying for the exam, I wrote a python program to solve every math problem that could’ve been encountered on an exam. I turned the program in, when the teacher asked us to show our work, and he called it “neat”!
+              </p>
+              <p class="mb-2">
+                After graduating and while pursuing a career as a laboratory technician, I found myself being dissatisfied. Computers have always held my interest, so I decided to look into the possible computer and coding related fields and stumbled upon the Google Career Certificates and decided to complete the Data Analytics Certificate Program as it seemed most aligned with my interests.
+              </p>
+              <h5 class="fw-bold">Why This Project?</h5>
+              <p class="mb-2">
+                While I did not complete the capstone project for the course at the time of its completion, however, I quickly revisited an old project from undergrad where I had scraped the daylily database database (my favorite plant), but the retrieved data wasn’t particularly useful. I have chosen to showcase this specific project, as it is a continuation of my earlier work on a topic of special interest to me, as both a scientist and a daylily collector and hybridizer. I hope to give the reader a sense of methodologies, perspectives, analytical skills, along with technical abilities and potential.
+              </p>
+            </div>
+            <div class="col-4">
+              <img src="/Assets/opry selfie.jpg" alt="Image of Me" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Background and Context</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              Daylily are by far my favorite plant, and have been for several years now. As a group of plants, Daylily began their modern journey in the 1920’s with the early hybridizing work of Dr. Arlow B. Stout at the New York Botanical Garden. Today, most people only will only ever encounter them as the yellow ‘Stella D’ Oro’ in landscaping or the orange ditch lily on road sides, however, as of this spring (2024), there are over 100,000 registered varieties, ranging from 10 inches to 7.5 feet tall, and they can come in every color except true blue with some of the largest flowers being over 12 inches across.
+            </p>
+            <div class="d-flex justify-content-center py-4">
+                <img src="/Assets/StellaSmall.jpeg" alt="Daylily Stella D Oro" class="img-fluid mx-2">
+                <img src="/Assets/fulvaSmall.jpeg" alt="The common ditch lily" class="img-fluid mx-2">
+            </div>
+            <p class="mb-2">
+              Daylily enthusiasts as a group, tend to be an older demographic as most don’t begin their journey with the plant until they are middle aged or retired. This demographic generalization can be seen indirectly when trying to research and shop for daylily in many of the outdated sites of hybridizers, farmers, and even The American Daylily Society’s own site. Despite the difficulty such sites can pose, the American Daylily Society’s database is often used as the main source most hybridizer’s and hobbyists alike will refer to when researching a variety. While doing searches to gather the information on the 400 plus varieties I have in my own garden, it became obvious to me there has to be a better way to gather and populate the fields of my varieties’ information. The current database only allows limited functionality and breadth in searches, and can require numerous subsequent and unreliable searches if you try to follow a pedigree through multiple generations.
+            </p>
+            <p class="mb-2">
+              In the context of the daylily society and their database, there has been very little transparency over the years in the contents and diversity of registered varieties, even for simple metrics such as total number of introductions. This project is a way to provide hybridizers, collectors, and the general gardener a better understanding of the modern Daylily variety pool through the collection and analysis of this very large publicly accessible data set. I chose the Shirley Farmer Hybridizer Meeting to present my projects findings. The meeting is a regional meeting specifically for hybridizers that is held in Dayton Ohio twice a year, with the spring meeting having an emphasis on “How To”.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Planning the Project</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Initial Goals...</h5>
+            <p class="mb-2">
+              Initially I was a unsure of the exact steps I needed to take with this project as I was unsure which final outcome I’d like to achieve as I was unsure what the specific data set could be used for, but given the general direction I wanted to head, I knew that with my phase 1 plan I could get closer to that outcome and my phase 1 plan would allow me a robust set up that could allow for the flexibility I’d need for doing analysis in the future.
+            </p>
+          </div>
+          <div class="col-12 py-3">
+            <img src="/Assets/Phase1.png" alt="Phase 1 flowchart" class="img-fluid mx-auto d-block" style="max-width: 90%;">
+          </div>
+        </div>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Learning and Adapting</h5>
+            <p class="mb-2">
+              As I was working on phase 1, I began to get a better idea of how the data would look and which questions I wanted to answer. As such I was able to create my question list and my phase 2 plan. The following list of questions and charts I wanted to make was created in order to be better able to identify trends over time in daylily. It was also ideal for some of the charts and graphs to include the standard distribution, max, min, and averages.
+            </p>
+          </div>
+          <div class="col-12 py-3">
+            <img src="/Assets/Phase2.png" alt="Phase 2 flowchart" class="img-fluid mx-auto d-block" style="max-width: 90%;">
+          </div>
+          <div class="card card-sm">
+            <h5 class="fw-bold">My Biggest Questions:</h5>
+            <ul class="mb-2">
+              <li>Year vs. Height</li>
+              <li>Year vs. Bloom size</li>
+              <li>Year vs. Bud Count</li>
+              <li>Year vs. Branching</li>
+              <li>Ploidy Percentages compared by type over time</li>
+              <li>Percentage Re-bloom by year</li>
+              <li>Bloom Season distribution over time</li>
+              <li>Leaf type distribution over time</li>
+              <li>Top 10 most prolific hybridizers</li>
+              <li>Top 10 varieties used in breeding</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">The Data Collection Process</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Packages Used</h5>
+            <p class="mb-2">
+              The scraping process initially appeared to be relatively straight forward, as I had a prior version of the script that would iterated through every page in the database and would pull the text off the screen and add it to a CSV file. For this script I primarily used <a href="https://www.selenium.dev/" target="_blank">Selenium</a>. From the first time I scraped the database, I knew that this method wouldn’t produce usable data, as it wasn’t consistently scraped nor formatted. As such I began to seek out the appropriate modules that allow more direct interaction with html as selenium has limited capabilities. <a href="https://beautiful-soup-4.readthedocs.io/en/latest/" target="_blank">BeautifulSoup</a> was chosen due to its customizability, specificity in selecting HTML elements, and common use in web scraping.
+            </p>
+          </div>
+        </div>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Trouble Shooting</h5>
+            <p class="mb-2">
+              While updating the existing script, my biggest challenge was incorporating BS4 and getting both selenium and BS4 to communicate back and forth to be able to navigate into each individual page, and pull individual elements from the inconsistently formatted fields in the database. I also chose to switch from using the chrome web driver to the Firefox Gecko Web Driver as it requires less version control in the browser used for automation. Upon completing the script to a satisfactory degree of functionality, the scraping took about 3 to 5 days to complete with periodic breaks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Creating a Database</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Exploring, Cleaning and Exporting Data</h5>
+            <p class="mb-2">
+              As a seemingly logical next step, I created a MySQL server on my local machine in order to house and interact with this new database worth of information. I had planned on querying the database directly later in the project. After creating a table in the database with the appropriate fields for each column of the scraped .CSV file, I utilized <a href="https://dbeaver.io/" target="_blank">DBeaver</a> to query the database and see the information present in the fields directly.
+            </p>
+            <p class="mb-2">
+              By visually inspecting the database, it became obvious there were some rows with either mostly incomplete information, or where tests that were simply never removed from database creation. All of these incomplete or remnant entries were permanently removed and the newly cleaned database was then fully exported. There was also a subset of rows exported as a subset for future process testing from a local hybridizer I am familiar with.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Data Analysis</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bolde">Using Google Co-Lab&trade;</h5>
+            <p class="mb-2">
+              It was at this point in the project, I decided that continuing to use <a href="https://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a> for this portion of the analysis probably wouldn’t be ideal. I needed an IDE that was more like a Jupyter Notebook. I chose to utilize Google Co-Lab as it comes configured out of the box, and only requires minimal configuration to import new packages and has the same functionalities as a Jupyter Notebook while also being cloud based, allowing for more flexibility.
+            </p>
+          </div>
+        </div>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <h5 class="fw-bold">Answering Questions and Noticing Trends</h5>
+            <p class="mb-2">
+              Given the list of questions I wanted to answer I had direction for analysis. Most of the charts and graphs were relatively straightforward to create as they were based on number type columns. However, when I reached the Top 10 questions, analysis became more difficult. The top Hybridizers was relatively easy to create but not strictly accurate at the fidelity I’d have preferred as it would’ve required more complex analysis and the use of regex to pick out individual hybridizers from collaborations as each hybridizer in a collaboration is written inconsistently. As collaborations only represent a smaller subset of all introductions from a hybridizers work, I decided to extend my chart to the top 50 hybridizers as there 5277 “unique” hybridizers in the dataset.
+            </p>
+          </div>
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="carousel-card">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="/Assets/Average Scape Height, Highest Scape Height, and Standard Deviation Over Time.png" class="d-block w-100" alt="First Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/BlmSiz00-23 under 25.png" class="d-block w-100" alt="Second Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/Unknown-2.png" class="d-block w-100" alt="Third Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/Unknown-3.png" class="d-block w-100" alt="Fourth Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/DIPvsTET over time.png" class="d-block w-100" alt="Fifth Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/PercentRebloomVS_time.png" class="d-block w-100" alt="Sixth Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/BloomSeasonType Vs Time.png" class="d-block w-100" alt="Seventh Image">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/Assets/Top50Hybridizers.png" class="d-block w-100" alt="Eighth Image">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Source Target Dataframe Creation and Centrality</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              The Top 10 varieties used in breeding initially was planned to be in the previous step, however, it became clear I’d have to create a network of the relationships between varieties prior to making this ranked list. Creating the source target data frame necessary to make the network graph of the relationships between varieties was a step I struggled with. I had so many issues utilizing Regex to identify known varieties in the parentage field of the data set.
+            </p>
+            <p class="mb-2">
+              Initially, I wanted to incorporate some sort of way to distinguish maternal and paternal parentage, but due to the complexity and lack of uniformity and completeness present in the dataset, I decided it would be best to simply pick out known parent varieties in a given row’s parentage field as some registered varieties are the result of multi-generational crosses and some parents are input as “unknown” or are a “sdlg” (seedling) with no other definable information of the parentage.
+            </p>
+            <p class="mb-2">
+              During the very long process of creating, testing, correcting, and retesting, steps to create the source target data frame for the network, the measure of degree of centrality became one my primary methods to see the quality of the output of network relationships. It was very obvious based upon the names present in the chart when substring matching occurred.
+            </p>
+            <img src="/Assets/IncorrectDegreeCent.jpg" alt="Incorrect Degree of Centrality Results Chart" class="img-fluid center">
+            <p class="mb-2">
+              This was an infuriating step that took me months to complete to a usable degree. The early tests I did with simplified logic worked almost immediately and produced a correct graph for the subset sample I collected earlier. The simpler logic, unfortunately, did not translate to the larger dataset.
+            </p>
+            <img src="/Assets/RICEsource_target.png" alt="Initial test with data subset" class="img-fluid center">
+            <p class="mb-2">
+              NetworkX, Matplotlib, and Pyvis where used for the smaller visualisation inside of the Co-Lab notebook but it quickly became obvious that network size was limited, and I’d need to find a new method to view a larger network with 70,000 nodes(varieties) and 120,000 edges(relationships).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Graphing with Cytoscape</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              I was able to get a correct source target data frame three days prior to my scheduled presentation. So I quickly scrambled to find a software that could work with my hardware. I had seen many projects where Gephi was used for similar visualisations but the platform hadn’t been updated to be compatible with the Apple M1. Cytoscape was a very similar bio-informatics software that had similar network graphing capabilities.
+            </p>
+            <p class="mb-2">
+              Unfortunately, I didn’t have enough time to familiarize myself with the software nor its capabilities. When I graphed the network, it was too dense to visually distinguish groups. My first glimpse of the newly force algorithm mapped graph, appeared on my screen as if someone had shot my screen with a paintball. When I attempted to run community detection algorithms on the network, most crashed, and the one that did succeed identified 1,000 or so groups.By this point I was out of time and was no longer able to further investigate this network to the degree I would’ve preferred to.
+            </p>
+            <div class="col-12 py-3">
+                <img src="/Assets/CytoZoomedOut.png" alt="Phase 1 flowchart" class="img-fluid mx-auto d-block" style="max-width: 90%;">
+            </div>
+            <div class="col-12 py-3">
+                <img src="/Assets/CytoZoomedIn.png" alt="Phase 1 flowchart" class="img-fluid mx-auto d-block" style="max-width: 90%;">
+            </div>
+            <div class="col-12 py-3">
+                <img src="/Assets/CytoZoomedINNNN.png" alt="Phase 1 flowchart" class="img-fluid mx-auto d-block" style="max-width: 90%;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Shirley Farmer Meeting Presentation</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              The Shirley Farmer Hybridizer Meeting is a hybridizer meeting held twice a year in the spring and fall. It is meant to foster and nurture hybridizers of all ages in an inclusive space where everyone shares their knowledge and love for daylily. Given the prior demographic information, this meeting is an excellent place to show the daylily community as a whole what is possible through simple analysis to identify trends, and to empirically confirm the most popular and most used varieties.
+            </p>
+          </div>
+             <div class="imposing-btn text-center mt-4 mb-5">
+                <a href="/Assets/Exponential Convolution DB Analysis.pdf" class="imposing-btn" target="_blank">[View Presentation]</a>
+            </div>  
+            <div class="col-12 text-wrapper">
+              <p class="mb-2 mt-1">
+                The presentation as a whole seemed to be positively received, including several people excitedly contacting the president of the daylily society about the presentation before the completion of the meeting.
+              </p>
+              <p class="mb-2">
+                Unfortunately, one of the biggest points I intended to make was the possible future applications for breeding such analytical techniques could provide seemed to have been missed. Most seemed to focus on the database aspect of my presentation. I should not have included the slide where I said “How to Steal A Database”. It was included, primarily, for comedic exaggeration purposes, as all the data is publicly available, but I don’t think it was taken as such, and completely derailed the intent and messaging of the presentation. I primarily wanted to simply share my analysis, show trends, correlations, and to show the exciting future possibilities and applications.
+              </p>
+            </div>
+            <div class="col-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Value To The Community</h2>
+        <div classrow w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              The value of a new interface or method to quickly analyze the relationships between the 70,000 daylily varieties with parentage information, could allow a hybridizer to efficiently identify key stone varieties in a given group, cluster, or hybridizers program. If hybridizers want to find keystone varieties they will have to go through and manually track pedigrees, or simply ask a breeder to intuit their “best breeders”. This methodology is a way to empirically identify these corner stone varieties. The other measures of centrality could also be a useful way to identify unique characteristics originating from a specific variety for a given group over multiple generations.
+            </p>
+            <p class="mb-2">
+              For my own purposes, and in layman terms, this is a way to tell myself which varieties to buy and which varieties would likely be the best of a given hybridizer's work, as a breakthrough variety within the given context of a program will likely become more central to the program moving forward.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">Forward: Future Analysis and Goals</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              While all this project to this point has been interesting and shows great potential to show trends and give the daylily community as a whole a valuable tool for hybridizing, the primary barrier has been accessibility, as none of the project has been published in a way to make it findable.
+            </p>
+            <p class="md-2">
+              Beyond this portfolio, I’d like to make all of my analysis available in a written and accessible format, both through a written explanation of methods and application, providing code, and start files like the .csv copy of the database, to prevent the need for someone else to scrape the database to do a similar project. It would also be useful to share the source target .csv so someone could do their own analysis of the daylily family tree.
+            </p>
+            <p class="md-2">
+              With these considerations and goals in mind, it would be conceivable that such a project have an end state with a Plotly Dash site powered by the Cytoscape plug-in to allow anyone anywhere to access and do their own analysis, and empower everyone to make more informed data driven decisions for their gardening and hybridizing goals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-4 mb-5 section-wrapper">
+      <div class="col w-100 section section-transition">
+        <h2 class="fw-bold mb-5 text-wrapper">The use of AI (ChatGPT)</h2>
+        <div class="row w-100 mb-2">
+          <div class="col-12 text-wrapper">
+            <p class="mb-2">
+              ChatGPT was used throughout this process for various aspects. As someone familiar with coding, I generally procedurally can discern what needs to happen in order to achieve a given goal, however, sometimes syntax unfamiliarity can pose a significant stumbling block, as such I used AI in order to help smooth the process, and reduce the time scales to make this project viable and produce usable data. There were several issues encountered while using ChatGPT including bandwidth issues, specificity in prompting, and lack of commonly available information useful for this project at the time of the given models training, Specifically 3.0. These issues were mostly corrected by switiching to a paid model (GPT4)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <footer class="footer">
+        <div class="footer-content">
+          <ul class="footer-info">
+            <li class="contact">Let's Get In Touch:</li>
+            <li>Trinity Love</li>
+            <li>Phone: +1 (234) 567-8910</li>
+            <li>Email: your-email@example.com</li>
+          </ul>
+        </ul>
+        <a href="https://www.linkedin.com/in/trinity-love-a551011b3/" target="_blank" class="footer-btn">
+          <i class="bi bi-linkedin"></i>
+          Find me on LinkedIn
+        </a>
+        </div>
+        <div class="footer-bottom">
+          <p>Trinity Love, all rights reserved</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-transition');
+          return;
+        }
+        entry.target.classList.remove('section-transition');
+      });
+    });
+    const sections = document.querySelectorAll('.section');
+    sections.forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
